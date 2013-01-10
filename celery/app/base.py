@@ -372,7 +372,8 @@ class Celery(object):
                               + self.__reduce_args__())
 
     def __reduce_args__(self):
-        return (self.main, self.conf.changes, self.loader_cls,
+        changes = [(k, v) for (k, v) in self.conf.items() if v is not None]
+        return (self.main, changes, self.loader_cls,
                 self.backend_cls, self.amqp_cls, self.events_cls,
                 self.log_cls, self.control_cls, self.accept_magic_kwargs)
 
